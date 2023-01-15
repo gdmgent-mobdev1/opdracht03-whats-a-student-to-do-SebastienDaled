@@ -1,0 +1,7 @@
+@import "normalize.css";
+@import "log.css";
+
+/* hide/show */
+.hide {
+  display: none;
+}

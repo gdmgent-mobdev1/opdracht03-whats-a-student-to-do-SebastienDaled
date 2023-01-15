@@ -1,6 +1,15 @@
 import LoginComponents from './login';
+import RegisterComponents from './register';
+import Card from './Card';
+import Comment from './Comment';
+import EditableText from './EditableText';
+import TodoList from './TodoList';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   LoginComponents,
+  RegisterComponents,
+  Card,
+  Comment,
+  EditableText,
+  TodoList,
 };
