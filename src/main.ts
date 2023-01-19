@@ -14,7 +14,7 @@ import {
   GithubAuthProvider,
 } from 'firebase/auth';
 
-import { LoginComponents, RegisterComponents } from './Components';
+import { LoginComponents, RegisterComponents, TodoList } from './Components';
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -45,10 +45,11 @@ const app = initializeApp(firebaseConfig);
 
 const auth : any = getAuth();
 
+const appContainer = document.querySelector<HTMLDivElement>('#app')!;
+
 const register = new RegisterComponents();
 const login = new LoginComponents();
-
-const appContainer = document.querySelector<HTMLDivElement>('#app')!;
+const todoList = new TodoList(appContainer);
 
 appContainer.appendChild(login.render());
 appContainer.appendChild(register.render());

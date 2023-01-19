@@ -1,6 +1,8 @@
 // import { Property } from '../Lib';
 // import { updateTodoFirebase } from '../lib/firebase-init';
 // eslint-disable-next-line import/no-cycle
+import { Property } from '../lib';
+import { updateTodoFirebase } from '../lib/firebase-init';
 import Card from './Card';
 
 export default class EditableText {

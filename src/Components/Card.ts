@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { v4 as uuidv4 } from 'uuid';
-import { root, State } from '../Lib';
-import { dragstartHandler } from '../Lib/dragAndDrop';
+import { root, State } from '../lib';
+import { dragstartHandler } from '../lib/dragAndDrop';
 import { deleteCardFromFirebase } from '../lib/firebase-init';
 import Comment from './Comment';
 import editableText from './editableText';
@@ -16,25 +16,25 @@ export default class Card {
 
   menuContainer?: HTMLElement;
 
-  card?: HTMLDivElement ;
+  card?: HTMLDivElement;
 
-  deleteButton?: HTMLButtonElement ;
+  deleteButton?: HTMLButtonElement;
 
-  p?: HTMLParagraphElement ;
+  p?: HTMLParagraphElement;
 
-  menu?: HTMLDivElement ;
+  menu?: HTMLDivElement;
 
-  menuTitle?: HTMLDivElement ;
+  menuTitle?: HTMLDivElement;
 
-  menuDescription?: HTMLDivElement ;
+  menuDescription?: HTMLDivElement;
 
-  commentsInput?: HTMLInputElement ;
+  commentsInput?: HTMLInputElement;
 
-  commentsButton?: HTMLButtonElement ;
+  commentsButton?: HTMLButtonElement;
 
-  menuComments?: HTMLDivElement ;
+  menuComments?: HTMLDivElement;
 
-  editableDescription?: editableText ;
+  editableDescription?: editableText;
 
   editableText?: editableText;
 
@@ -42,7 +42,8 @@ export default class Card {
 
   parentId: string;
 
-  constructor(title: string, place: HTMLElement, todoList: TodoList, id = '_'+uuidv4(), parentId:string) {
+  // eslint-disable-next-line @typescript-eslint/default-param-last
+  constructor(title: string, place: HTMLElement, todoList: TodoList, id = `_${uuidv4()}`, parentId:string) {
     this.id = id;
     this.place = place;
     this.todoList = todoList;
@@ -54,7 +55,6 @@ export default class Card {
     };
     this.parentId = parentId;
     this.render();
-
   }
 
   render(): void {
@@ -63,7 +63,7 @@ export default class Card {
     this.card.setAttribute('draggable', 'true');
     this.card.id = this.id;
     this.deleteButton = document.createElement('button');
-    this.deleteButton.classList.add('delete-btn')
+    this.deleteButton.classList.add('delete-btn');
     this.card.addEventListener('click', (e) => {
       if (e.target !== this.deleteButton) {
         this.showMenu.call(this);
@@ -75,7 +75,7 @@ export default class Card {
     this.p.innerText = this.state.title;
 
     this.deleteButton = document.createElement('button');
-    this.deleteButton.classList.add('delete-btn')
+    this.deleteButton.classList.add('delete-btn');
 
     this.deleteButton.addEventListener('click', () => {
       this.deleteCard.call(this);
@@ -108,13 +108,13 @@ export default class Card {
     this.menu.className = 'menu';
     this.menuContainer.className = 'menuContainer';
     this.menu.setAttribute('data-id', this.id);
-    this.menu.setAttribute('data-todolist-id', this.parentId )
+    this.menu.setAttribute('data-todolist-id', this.parentId);
     this.menuTitle.className = 'menuTitle';
     this.menuDescription.className = 'menuDescription';
     this.menuComments.className = 'menuComments';
     this.commentsInput.className = 'commentsInput comment';
     this.commentsButton.className = 'commentsButton btn-save';
-    
+
     // Add inner title
     this.commentsButton.innerText = 'Add';
     this.commentsInput.placeholder = 'Write a comment...';
@@ -142,7 +142,9 @@ export default class Card {
     this.menu.append(this.menuComments);
     this.menuContainer.append(this.menu);
     root.append(this.menuContainer);
+    // eslint-disable-next-line new-cap
     this.editableDescription = new editableText(this.state.description, this.menuDescription, this, 'description', 'textarea', this.id, this.parentId);
+    // eslint-disable-next-line new-cap
     this.editableText = new editableText(this.state.title, this.menuTitle, this, 'title', 'input', this.id, this.parentId);
 
     this.renderComments();

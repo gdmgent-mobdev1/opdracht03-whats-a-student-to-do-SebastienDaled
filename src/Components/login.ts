@@ -46,11 +46,12 @@ class LoginComponents extends Component {
       </div>
     </form>
     `;
-    // loginContainer.appendChild(
-    //   Elements.createHeader({
-    //     textContent: 'Welcome to this page',
-    //   }),
-    // );
+
+    const otherForm = document.querySelector(".btnOther");
+
+    otherForm?.addEventListener('click', () => {
+      
+    })
 
     return loginContainer;
   }

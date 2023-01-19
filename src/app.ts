@@ -1,97 +1,189 @@
 /* eslint-disable no-new */
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 import {
   collection,
   getDocs,
   onSnapshot,
   addDoc,
 } from 'firebase/firestore';
-import { Card, TodoList } from './Components';
-import { State, root } from './lib';
+import { LoginComponents, RegisterComponents } from './Components';
+import { showTrello } from './lib/showTrello';
 
 // import firestore
 import { fireStoreDb } from './lib/firebase-init';
 // import localstorage from './Lib/localStorage';
-// -------------main------------
-const addTodoListInput = document.getElementById('addTodoListInput') as HTMLInputElement;
-const addTodoListButton = document.getElementById('addTodoListButton') as HTMLElement;
+// ------------------------------------------------------------------------------------------------------------------------------
+const auth : any = getAuth();
 
-const addTodoListFirebase = async (title: string) => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const docRef = await addDoc(colRef, {
-    title,
+const appContainer = document.querySelector<HTMLDivElement>('#app')!;
+
+const register = new RegisterComponents();
+const login = new LoginComponents();
+
+appContainer.appendChild(login.render());
+appContainer.appendChild(register.render());
+
+const otherAuth : HTMLElement | any = document.querySelectorAll('.btnOther');
+
+const signupForm : HTMLElement | any = document.querySelector('.sign');
+const loginForm : HTMLElement | any = document.querySelector('.login');
+const googleBtn : HTMLElement | any = document.querySelectorAll('.google');
+const githubBtn : HTMLElement | any = document.querySelectorAll('.github');
+
+let userInfo = auth.currentUser;
+
+const check = () => {
+  otherAuth.forEach((btn:
+  { addEventListener: (arg0: string, arg1: (e: any) => void) => void; }) => {
+    btn.addEventListener('click', (e : any) => {
+      // appContainer.innerHTML = '';
+      if (e.originalTarget.id === 'loginBtn') {
+        loginForm.classList.add('hide');
+        signupForm.classList.remove('hide');
+        // appContainer.appendChild(register.render());
+        // otherAuth = document.querySelectorAll('.btnOther');
+        // check();
+      } else if (e.originalTarget.id === 'registerBtn') {
+        loginForm.classList.remove('hide');
+        signupForm.classList.add('hide');
+        // appContainer.appendChild(login.render());
+        // otherAuth = document.querySelectorAll('.btnOther');
+        // check();
+      }
+    });
   });
-  console.log('Document written with ID: ', docRef.id);
-  return docRef.id;
 };
+check();
+loginForm.addEventListener('submit', (e: { preventDefault: () => void; }) => {
+  e.preventDefault();
 
-addTodoListButton.addEventListener('click', async () => {
-  if (addTodoListInput.value.trim() !== '') {
-    await addTodoListFirebase(addTodoListInput.value);
-    // new TodoList(root, addTodoListInput.value, id);
+  const emialErr : HTMLElement | any = document.querySelector('#logEmailErr');
+  const passErr : HTMLElement | any = document.querySelector('#logPassErr');
+  const email = loginForm.email.value;
+  const password = loginForm.password.value;
 
-    addTodoListInput.value = '';
-  }
+  signInWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log(`user logged in:${cred.user}`);
+      loginForm.reset();
+      hideAuthWhenLoggedIn();
+    }).catch((err) => {
+      console.log(err);
+
+      console.log(err.message);
+      if (err.message === 'Firebase: Error (auth/user-not-found).') {
+        emialErr.innerText = 'je hebt een verkeerd emailadress ingegeven';
+      }
+      if (err.message === 'Firebase: Error (auth/wrong-password).') {
+        passErr.innerText = 'je hebt een verkeerd wachtwoord ingegeven';
+      }
+    });
 });
 
-const getCards = async (id: string) => {
-  const cardsSnapShot = collection(fireStoreDb, `lists/${id}/cards`);
-  const qSnap = await getDocs(cardsSnapShot);
-  return qSnap.docs.map((d) => (
-    {
-      id: d.id,
-      title: d.data().title,
-      description: d.data().description,
-      comments: d.data().comments,
-      parentId: d.data().parentId,
-    }
-  ));
-};
+signupForm.addEventListener('submit', (e: Event) => {
+  e.preventDefault();
 
-const createTodoList = ({ id, cards, title }: { id: string; cards: State[], title: string }) => {
-  const newList: TodoList = new TodoList(root, title, id);
+  const emialErr : HTMLElement | any = document.querySelector('#signEmailErr');
+  const passErr : HTMLElement | any = document.querySelector('#signPassErr');
+  const userErr : HTMLElement | any = document.querySelector('#signUserErr');
 
-  cards.forEach((card: State) => {
-    new Card(card.title, newList.div as HTMLElement, newList, card.id, id);
-    // newList.addToDo();
-  });
-};
+  const email = signupForm.email.value;
+  const password = signupForm.password.value;
+  const username = signupForm.username.value;
 
-// select collection
-// We willen nu referen naar onze collectie `owl-statues`
-const colRef = collection(fireStoreDb, 'lists');
-// get data
-onSnapshot(colRef, (snapshot) => {
-  snapshot.docChanges().forEach(async (change) => {
-    if (change.type === 'added') {
-      // snapshot.docs.forEach(async (doc) => {
-      //   addTodoListInput.value = '';
-      const cards = await getCards(change.doc.id);
-      const { id } = change.doc;
-      const { title } = change.doc.data();
-      createTodoList({
-        title, id, cards, ...change.doc.data(),
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      console.log(`user created:${cred.user}`);
+
+      updateProfile(auth.currentUser, {
+        displayName: username,
       });
-      // });
-    }
-    if (change.type === 'modified') {
-      // rerendering
-    }
-    if (change.type === 'removed') {
-      // removing
-    }
-  });
 
-  // document.querySelector('#app')!.innerHTML = '';
+      signupForm.reset();
+      hideAuthWhenLoggedIn();
+    }).catch((err) => {
+      console.log(err.message);
+      if (err.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+        passErr.innerText = 'Wachtwoord moet minstens 6 characters hebben';
+      }
+      if (err.message === 'Firebase: Error (auth/wrong-password).') {
+        passErr.innerText = 'je hebt een verkeerd wachtwoord ingegeven';
+      }
+    });
 });
-// const snapshot =  await getDocs(colRef);
 
-// lists.forEach((listElement) => {
-//   console.log(listElement)
+const provider = new GoogleAuthProvider();
+googleBtn.forEach((google: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+  google.addEventListener('click', () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential : any = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const { user } = result;
+        // ...
+        userInfo = auth.currentUser;
+        console.log(userInfo);
+        hideAuthWhenLoggedIn();
+        showTrello();
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const { email } = error.customData;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  });
+});
+const provider2 = new GithubAuthProvider();
+githubBtn.forEach((git: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
+  git.addEventListener('click', () => {
+    signInWithPopup(auth, provider2)
+      .then((result) => {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        const credential : any = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
 
-//   // listElement.cards.forEach(
-//   //   (card) => {
-//   //     // newList.addToDo(card.)
-//   //   }
-//   // )
+        // The signed-in user info.
+        const { user } = result;
+        hideAuthWhenLoggedIn();
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const { email } = error.customData;
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
+        // ...
+      });
+  });
+});
+console.log(userInfo);
 
-// });
+const hideAuthWhenLoggedIn = () => {
+  if (!signupForm.classList.contains("hide")) {
+    signupForm.classList.add("hide");
+  }
+  if (!loginForm.classList.contains("hide")) {
+    loginForm.classList.add("hide");
+  }
+}
+
+// ------------------------------------------------------------------------------------------------------------------------------
+const colRefP = collection(fireStoreDb, 'projecten');
+console.log(colRefP);
+onSnapshot(colRefP, (snapshot) => {
+    console.log(snapshot);
+    
+  snapshot.docs.forEach(doc => {
+    console.log(doc.data());
+    
+  })
+
+})
