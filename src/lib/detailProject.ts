@@ -1,4 +1,4 @@
-import { arrayUnion, collection, doc, getFirestore, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, collection, doc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore";
 import { DetailProject } from "../Components"
 import { showHomepage } from "./projects";
 import { showTrello } from "./showTrello";
@@ -93,16 +93,3 @@ const makeSubTask = async (id: string) => {
     addSubtaskFormDiv.classList.add("hide");
   })
 }
-
-const makeRandomId = (length : number) => {
-  let result : string = "";
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  // console.log(result);
-  
-  return result;
-}
-

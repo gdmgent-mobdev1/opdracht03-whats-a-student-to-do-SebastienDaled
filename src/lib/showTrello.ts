@@ -1,12 +1,11 @@
 /* eslint-disable no-new */
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 import {
   collection,
   getDocs,
   onSnapshot,
   addDoc,
 } from 'firebase/firestore';
-import { Card, LoginComponents, RegisterComponents, TodoList } from '../Components';
+import { Card, TodoList } from '../Components';
 import { State, root } from '.';
 
 // import firestore

@@ -3,7 +3,7 @@
 
 import { initializeApp } from 'firebase/app';
 import {
-  addDoc, collection, deleteDoc, doc, getFirestore, setDoc,
+  addDoc, collection, deleteDoc, doc, getFirestore, 
 } from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -53,13 +53,13 @@ export const updateTodoFirebase = async (
 ) => {
   console.log(todoListId, id, attribute, value);
   if (attribute === 'title') {
-    const answer = await setDoc(doc(fireStoreDb, `lists/${todoListId}/cards`, id), {
-      title: value,
-    }, { merge: true });
+    // const answer = await setDoc(doc(fireStoreDb, `lists/${todoListId}/cards`, id), {
+    //   title: value,
+    // }, { merge: true });
   } else {
-    const answer = await setDoc(doc(fireStoreDb, `lists/${todoListId}/cards`, id), {
-      description: value,
-    }, { merge: true });
+    // const answer = await setDoc(doc(fireStoreDb, `lists/${todoListId}/cards`, id), {
+    //   description: value,
+    // }, { merge: true });
   }
 };
 

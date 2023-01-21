@@ -2,12 +2,9 @@
 import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 import {
   collection,
-  getDocs,
   onSnapshot,
-  addDoc,
 } from 'firebase/firestore';
 import { LoginComponents, RegisterComponents } from './Components';
-import { showTrello } from './lib/showTrello';
 
 // import firestore
 import { fireStoreDb } from './lib/firebase-init';
@@ -85,9 +82,9 @@ loginForm.addEventListener('submit', (e: { preventDefault: () => void; }) => {
 signupForm.addEventListener('submit', (e: Event) => {
   e.preventDefault();
 
-  const emialErr : HTMLElement | any = document.querySelector('#signEmailErr');
+  // const emialErr : HTMLElement | any = document.querySelector('#signEmailErr');
   const passErr : HTMLElement | any = document.querySelector('#signPassErr');
-  const userErr : HTMLElement | any = document.querySelector('#signUserErr');
+  // const userErr : HTMLElement | any = document.querySelector('#signUserErr');
 
   const email = signupForm.email.value;
   const password = signupForm.password.value;
@@ -119,12 +116,12 @@ const provider = new GoogleAuthProvider();
 googleBtn.forEach((google: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
   google.addEventListener('click', () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(() => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential : any = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
+        // const credential : any = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
         // The signed-in user info.
-        const { user } = result;
+        // const { user } = result;
         // ...
         userInfo = auth.currentUser;
         console.log(userInfo);
@@ -134,14 +131,14 @@ googleBtn.forEach((google: { addEventListener: (arg0: string, arg1: () => void) 
         // const addDiv = document.querySelector("#addTodoListDiv")
         // addDiv?.classList.remove("hide");
         
-      }).catch((error) => {
+      }).catch(() => {
         // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
         // The email of the user's account used.
-        const { email } = error.customData;
+        // const { email } = error.customData;
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
   });
@@ -150,24 +147,24 @@ const provider2 = new GithubAuthProvider();
 githubBtn.forEach((git: { addEventListener: (arg0: string, arg1: () => void) => void; }) => {
   git.addEventListener('click', () => {
     signInWithPopup(auth, provider2)
-      .then((result) => {
+      .then(() => {
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        const credential : any = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
+        // const credential : any = GithubAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
 
         // The signed-in user info.
-        const { user } = result;
+        // const { user } = result;
         hideAuthWhenLoggedIn();
         showHomepage();
         // ...
-      }).catch((error) => {
+      }).catch(() => {
         // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
         // The email of the user's account used.
-        const { email } = error.customData;
+        // const { email } = error.customData;
         // The AuthCredential type that was used.
-        const credential = GithubAuthProvider.credentialFromError(error);
+        // const credential = GithubAuthProvider.credentialFromError(error);
         // ...
       });
   });
