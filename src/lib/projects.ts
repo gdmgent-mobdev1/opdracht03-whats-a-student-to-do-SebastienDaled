@@ -1,5 +1,6 @@
 import { collection, doc, getFirestore, onSnapshot, setDoc } from "firebase/firestore";
 import { Homepage } from "../Components"
+import { showDetail } from "./detailProject";
 import { showTrello } from "./showTrello";
 
 const db = getFirestore();
@@ -71,11 +72,13 @@ export const showHomepage = () => {
        </div>
       `
 
-      const prjDiv = document.querySelector(".prjDiv");
-
-      prjDiv?.addEventListener("click", () => {
-        
+      const prjDiv = document.querySelectorAll(".prjDiv");
+      prjDiv.forEach(btn => {
+        btn.addEventListener("click", () => {
+          showDetail();
+        })
       })
+      
     })
   })
 

@@ -11,15 +11,16 @@ class DetailProject extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   render(): HTMLElement {
-    const homepage = document.createElement('div');
-    homepage.innerHTML = `
+    const detailProject = document.createElement('div');
+    detailProject.innerHTML = `
       <header>
         <h1>Whats a student to do</h1>
       </header>
-      
+      <p>djkfhushfkjhd</p>
+      <button id="detailBackBtn" class="btn">terug</button>
       `;
 
-    return homepage;
+    return detailProject;
   }
 }
 

@@ -1,26 +1,35 @@
-import Component from '../lib/Components';
-// import Elements from '../library/Elements';
+import { collection, doc, getFirestore, onSnapshot, setDoc } from "firebase/firestore";
+import { DetailProject } from "../Components"
+import { showHomepage } from "./projects";
+import { showTrello } from "./showTrello";
 
-class DetailProject extends Component {
-  constructor() {
-    super({
-      name: 'detailProject',
-      model: {},
-    });
+const db = getFirestore();
+const colRef = collection(db, 'projecten');
+
+export const showDetail = () => {
+  const appContainer = document.querySelector<HTMLDivElement>('#app')!;
+
+  const detailproject = new DetailProject();
+  // const AddProjectComp = new AddProject();
+  appContainer.innerHTML = "";
+  appContainer.appendChild(detailproject.render());
+  
+  const detailBackBtn = document.querySelector("#detailBackBtn");
+
+  detailBackBtn?.addEventListener("click", () => {
+    showHomepage();
+  })
+} 
+
+const makeRandomId = (length : number) => {
+  let result : string = "";
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  render(): HTMLElement {
-    const homepage = document.createElement('div');
-    homepage.innerHTML = `
-      <header>
-        <h1>Whats a student to do</h1>
-      </header>
-      
-      `;
-
-    return homepage;
-  }
+  // console.log(result);
+  
+  return result;
 }
 
-export default DetailProject;
