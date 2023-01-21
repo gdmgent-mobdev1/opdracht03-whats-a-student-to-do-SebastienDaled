@@ -35,11 +35,11 @@ class LoginComponents extends Component {
 
         <div class="other-flex">
           <button class="btn btn-other google" type="button">
-            <img src="./src/images/google-logo-png-google-icon-download-icons-18.png" alt="">
+            <img src="./src/images/google-logo-png-google-icon-download-icons-18.png" alt="GoogleLogo">
           </button>
   
           <button class="btn btn-other github" type="button">
-            <img src="./src/images/Octicons-mark-github.png" alt="">
+            <img src="./src/images/Octicons-mark-github.png" alt="githubLogo">
           </button>
         </div>
         <p id="loginBtn" class="btn btn--third btnOther">Nog geen account? REGISTREREN</p>

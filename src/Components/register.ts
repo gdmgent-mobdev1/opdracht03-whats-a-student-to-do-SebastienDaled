@@ -41,11 +41,11 @@ class RegisterComponents extends Component {
 
         <div class="other-flex">
           <button class="btn btn-other google" type="button">
-            <img src="./src/images/google-logo-png-google-icon-download-icons-18.png" alt="">
+            <img src="./src/images/google-logo-png-google-icon-download-icons-18.png" alt="Google logo">
           </button>
   
           <button class="btn btn-other github" type="button">
-            <img src="./src/images/Octicons-mark-github.png" alt="">
+            <img src="./src/images/Octicons-mark-github.png" alt="Github logo">
           </button>
         </div>
         
