@@ -61,6 +61,7 @@ export default class TodoList {
     this.h2 = document.createElement('h2');
     this.h2.innerText = this.title;
     this.input = document.createElement('input');
+    this.input.placeholder = "Maak hier je kaarten aan";
     this.input.classList.add('comment');
     this.button = document.createElement('button');
     this.button.innerText = 'Add';

@@ -8,7 +8,7 @@ const colRef = collection(db, 'projecten');
 
 export const showHomepage = () => {
   const appContainer = document.querySelector<HTMLDivElement>('#app')!;
-
+  appContainer.innerHTML = "";
   const homepage = new Homepage();
   // const AddProjectComp = new AddProject();
 
@@ -40,6 +40,7 @@ export const showHomepage = () => {
       projectName: addProjectForm.naam.value,
       beschrijving: addProjectForm.beschrijving.value,
       deadline: addProjectForm.deadline.value,
+      subTasks: []
     })
 
     addProjectForm.reset();
@@ -65,7 +66,7 @@ export const showHomepage = () => {
       console.log(project);
       
       showProjectsDiv.innerHTML += `
-      <div class="prjDiv">
+      <div class="prjDiv" id="${project.name}">
         <h2>${project.projectName}</h2>
         <h3>deadline: ${project.deadline}</h3>
         <p>beschrijving: ${project.beschrijving}</p>
@@ -74,8 +75,9 @@ export const showHomepage = () => {
 
       const prjDiv = document.querySelectorAll(".prjDiv");
       prjDiv.forEach(btn => {
+        const id = btn.id;
         btn.addEventListener("click", () => {
-          showDetail();
+          showDetail(id);
         })
       })
       

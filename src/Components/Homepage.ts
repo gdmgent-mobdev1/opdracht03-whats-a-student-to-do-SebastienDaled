@@ -18,7 +18,7 @@ class Homepage extends Component {
       </header>
       <div class="actionBtnDiv">
         <button id="addProjectBtn" class="btn actionBtn">voeg project toe</button>
-        <button id="GotToTrello" class="btn actionBtn">taken beheren</button>
+        <button id="GotToTrello" class="btn actionBtn">To-Do</button>
       </div>
       <div id="showProjectsDiv">
       </div>

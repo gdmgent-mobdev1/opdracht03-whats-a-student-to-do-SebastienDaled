@@ -11,17 +11,35 @@ import { State, root } from '.';
 
 // import firestore
 import { fireStoreDb } from './firebase-init';
+import { showHomepage } from './projects';
 // import localstorage from './Lib/localStorage';
 // -------------main------------
 export const showTrello = () => {
-  const app = document.querySelector("#app");
+  const app : HTMLElement | null = document.querySelector("#app")!;
+  app.innerHTML = `
+  <header>
+  <h1>Whats a student to do</h1>
+</header>
+<div class="actionBtnDiv">
+  <button id="goProjects" class="btn actionBtn">projecten</button>
+</div>
+
+  <h2 class="titleToDo">To-Do</h2>
+  `;
+
+  const goProjects = document.querySelector("#goProjects");
+
+  goProjects?.addEventListener("click", () => {
+    showHomepage();
+  })
 
   const addDiv = document.createElement("div");
   addDiv.setAttribute("id", "addTodoListDiv");
 
-  const addInput = document.createElement("input");
+  const addInput : HTMLInputElement = document.createElement("input");
   addInput.setAttribute("id", "addTodoListInput");
   addInput.setAttribute("class", "comment");
+  addInput.placeholder = "Maak hier een extra bord aan";
   
   const addButton : HTMLButtonElement | null = document.createElement("button")!;
   addButton.setAttribute("id", "addTodoListButton");

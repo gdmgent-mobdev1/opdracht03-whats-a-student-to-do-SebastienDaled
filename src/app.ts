@@ -68,6 +68,7 @@ loginForm.addEventListener('submit', (e: { preventDefault: () => void; }) => {
       console.log(`user logged in:${cred.user}`);
       loginForm.reset();
       hideAuthWhenLoggedIn();
+      showHomepage();
     }).catch((err) => {
       console.log(err);
 
@@ -102,6 +103,7 @@ signupForm.addEventListener('submit', (e: Event) => {
 
       signupForm.reset();
       hideAuthWhenLoggedIn();
+      showHomepage();
     }).catch((err) => {
       console.log(err.message);
       if (err.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
@@ -156,6 +158,7 @@ githubBtn.forEach((git: { addEventListener: (arg0: string, arg1: () => void) => 
         // The signed-in user info.
         const { user } = result;
         hideAuthWhenLoggedIn();
+        showHomepage();
         // ...
       }).catch((error) => {
         // Handle Errors here.
