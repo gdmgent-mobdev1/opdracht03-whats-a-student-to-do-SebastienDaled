@@ -11,6 +11,7 @@ import { showTrello } from './lib/showTrello';
 
 // import firestore
 import { fireStoreDb } from './lib/firebase-init';
+import { showHomepage } from './lib/projects';
 // import localstorage from './Lib/localStorage';
 // ------------------------------------------------------------------------------------------------------------------------------
 const auth : any = getAuth();
@@ -126,7 +127,11 @@ googleBtn.forEach((google: { addEventListener: (arg0: string, arg1: () => void) 
         userInfo = auth.currentUser;
         console.log(userInfo);
         hideAuthWhenLoggedIn();
-        showTrello();
+        // showTrello();
+        showHomepage();
+        // const addDiv = document.querySelector("#addTodoListDiv")
+        // addDiv?.classList.remove("hide");
+        
       }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;

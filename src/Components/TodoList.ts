@@ -57,7 +57,7 @@ export default class TodoList {
   // }
 
   createToDoListElement(): void {
-    // Create elements
+    // Create Elements
     this.h2 = document.createElement('h2');
     this.h2.innerText = this.title;
     this.input = document.createElement('input');

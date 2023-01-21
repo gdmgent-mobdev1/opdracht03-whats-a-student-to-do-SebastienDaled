@@ -5,6 +5,7 @@ import TodoList from './TodoList';
 import LoginComponents from './login';
 import RegisterComponents from './register';
 import Homepage from './Homepage';
+import DetailProject from './detailProject';
 
 export {
   Card,
@@ -13,5 +14,6 @@ export {
   TodoList,
   LoginComponents,
   RegisterComponents,
-  Homepage
+  Homepage,
+  DetailProject
 };

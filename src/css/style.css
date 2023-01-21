@@ -4,10 +4,11 @@
 *{
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 body{
   /*background-color: rgb(30, 30, 95);*/
-  background-color: rgb(145, 145, 201);
+  background-color:#30383B;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -233,4 +234,119 @@ body{
 
 .hide {
   display: none;
+}
+
+
+/* login */
+.signup input {
+  padding: .3rem .5rem;
+  border: 0;
+  border-radius: 5px;
+  margin: .5rem 0 1rem 0;
+}
+.signup label {
+  color: #F2B11B;
+  font-size: 1rem;
+}
+.signup h2 {
+  margin-bottom: 2rem;
+  color: #D78D1E;
+}
+.btn{
+  background-color: #D78D1E;
+  color: #F2F2F2;
+}
+.btn-auth{
+  padding: .7rem .5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #d7c5ab;
+  color: #F2F2F2;
+}
+.btn-other{
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+}
+.btn-other img{
+  /* transform: scale(); */
+}
+.btn--third{
+  background-color: transparent;
+}
+
+/* projecten */
+header h1{
+  width: 95%;
+  margin: .5rem auto 1rem auto;
+  color: #c58018;
+}
+.prjDiv{
+  width: 95%;
+  margin: 1rem auto;
+  background-color: #585a5b;
+  padding: .7rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.prjDiv h2{
+  font-size: 2rem;
+  color: #D78D1E;
+}
+.prjDiv h3 {
+  color: #F2F2F2;
+  font-size: .7rem;
+  margin-bottom: .5rem;
+}
+.prjDiv p{
+  color: #F2F2F2;
+}
+.actionBtnDiv{
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  gap: 1rem;
+}
+.actionBtn{
+  width: 40%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  transition: .5s;
+}
+/* add project */
+.addProjectFormDiv{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(48, 56, 59, .9);
+}
+.addProjectForm{
+  width: 95%;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.addProjectForm input{
+  border: none;
+  padding: .4rem ;
+  margin: .5rem 0;
+}
+.addProjectForm h2{
+  color: #D78D1E;
+  margin-bottom: .5rem;
+}
+.addPrjBtn{
+  margin-top: .5rem;
+  width: 50%;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+}
+.cancelPrjBtn{
+  background-color: #a06a19;
 }

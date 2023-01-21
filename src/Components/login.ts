@@ -20,16 +20,16 @@ class LoginComponents extends Component {
         </div>
         <div class="fields">
           <label for="">Emailadress</label>
-          <input type="text" name="email" required>
+          <input type="text" name="email" required placeholder="vul je email in">
           <p id="logEmailErr" class="errorMessage"></p>
         </div>
         <div class="fields">
           <label for="">Wachtwoord</label>
-          <input type="password" name="password" required>
+          <input type="password" name="password" required placeholder="vul je wachtwoord in">
           <p id="logPassErr" class="errorMessage"></p>
         </div>
 
-        <button type="submit" class="btn">Aanmelden</button>
+        <button type="submit" class="btn btn-auth">Aanmelden</button>
 
         <p class="text--center">Of</p>
 

@@ -20,22 +20,22 @@ class RegisterComponents extends Component {
         </div>
         <div class="fields">
           <label for="email">Emailadres</label>
-          <input type="email" name="email" required>
+          <input type="email" name="email" required placeholder="vul je email in">
           <p id="signEmailErr" class="errorMessage"></p>
         </div>
 
         <div class="fields">
           <label for="">Gebruikersnaam</label>
-          <input type="text" name="username" required>
+          <input type="text" name="username" required placeholder="maak een gebruikersnaam aan">
           <p id="signUserErr" class="errorMessage"></p>
         </div>
         <div class="fields">
           <label for="">Wachtwoord</label>
-          <input type="password" name="password" required>
+          <input type="password" name="password" required placeholder="maak een wachtwoord">
           <p id="signPassErr" class="errorMessage"></p>
         </div>
 
-        <button class="btn auth" type="submit">Signup</button>
+        <button class="btn auth btn-auth" type="submit">Signup</button>
 
         <p class="text--center">Or</p>
 
